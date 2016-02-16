@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :expense do
-    date "2016-02-16"
-    title "MyString"
-    amount 1.5
+    date Date.parse("14/02/2016") 
+    title { FFaker::Lorem::phrase }
+    amount { (rand * 100).round(2) }
     user nil
     category nil
   end
