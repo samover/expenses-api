@@ -42,6 +42,8 @@ GEM
     builder (3.2.2)
     concurrent-ruby (1.0.0)
     diff-lcs (1.2.5)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -110,6 +112,12 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    shoulda (3.5.0)
+      shoulda-context (~> 1.0, >= 1.0.1)
+      shoulda-matchers (>= 1.4.1, < 3.0)
+    shoulda-context (1.2.1)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     spring (1.6.3)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
@@ -129,11 +137,13 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  email_validator
   factory_girl_rails
   ffaker
   rails (= 4.2.5)
   rails-api
   rspec-rails
+  shoulda
   spring
   sqlite3
 
