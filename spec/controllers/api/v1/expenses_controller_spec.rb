@@ -90,4 +90,10 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
       it { is_expected.to respond_with 422 }
     end
   end
+
+  describe 'DELETE #destroy' do
+    before { delete :destroy, { id: expense.id }, format: :json }
+
+    it { is_expected.to respond_with 204 }
+  end
 end

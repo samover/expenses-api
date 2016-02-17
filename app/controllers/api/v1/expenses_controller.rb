@@ -30,6 +30,12 @@ class Api::V1::ExpensesController < ApplicationController
     end
   end
 
+  def destroy
+    expense = Expense.find(params[:id])
+    expense.destroy
+    head 204
+  end
+
   private
 
   def expense_params
