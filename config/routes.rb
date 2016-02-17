@@ -1,7 +1,8 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  get :token, controller: 'application'
+  get :sign_in, controller: 'application'
+  get :sign_out, controller: 'application'
   namespace :api, constraints: { subdomain: 'api' }, path: '/' do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true)  do
       resources :users, :only => [:show, :create, :update, :destroy]
