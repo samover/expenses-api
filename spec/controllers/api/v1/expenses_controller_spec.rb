@@ -5,12 +5,8 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
                               user: FactoryGirl.create(:user),
                               category: FactoryGirl.create(:category)) }
 
-  before(:each) do
-    request.headers['Accept'] = 'application/vnd.accounts.v1'
-  end
-
   describe 'GET #show' do
-    before(:each) { get :show, id: expense.id, format: :json }
+    before(:each) { get :show, id: expense.id}
 
     it 'returns the information about a reporter on a hash' do
       expect(json_response[:title]).to eql expense.title
@@ -24,9 +20,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
     let(:invalid_attributes) { FactoryGirl.attributes_for(:expense, title: '') }
 
     context 'when is successfully created' do
-      before(:each) do 
-        post :create, { expense: expense_attributes }, format: :json
-      end
+      before(:each) { post :create, { expense: expense_attributes } }
       
       it 'renders the json representation for the expense just created' do
         expect(json_response[:title]).to eql expense_attributes[:title]
@@ -36,13 +30,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
     end
 
     context 'when is not created' do
-      before(:each) do
-        post :create, { expense: invalid_attributes }, format: :json
-      end
-
-      it 'renders the json errors' do
-        expect(json_response).to have_key(:errors)
-      end
+      before(:each) { post :create, { expense: invalid_attributes } }
 
       it 'renders the json errors on why the expense entry cannot be created' do
         expect(json_response[:errors][:title]).to include "can't be blank"
@@ -55,8 +43,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
   describe 'PATCH #update' do
     context 'when is succesfully updated' do
       before(:each) do
-        patch :update, { id: expense.id, 
-                         expense: { title: 'An updated title' } }, format: :json
+        patch :update, { id: expense.id, expense: { title: 'An updated title' } }
       end
 
       it 'renders the json representation of the expense just updated' do
@@ -68,12 +55,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
 
     context 'when is not successful' do
       before(:each) do
-        patch :update, { id: expense.id,
-                         expense: { amount: '' } }, format: :json
-      end
-
-      it 'renders the json errors' do
-        expect(json_response).to have_key(:errors)
+        patch :update, { id: expense.id, expense: { amount: '' } }
       end
 
       it 'renders the json errors on why the expense entry cannot be created' do
@@ -85,7 +67,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before { delete :destroy, { id: expense.id }, format: :json }
+    before { delete :destroy, { id: expense.id } }
 
     it { is_expected.to respond_with 204 }
   end
