@@ -8,7 +8,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     before(:each) { get :show, id: user.id}
 
     it 'returns the information about a reporter on a hash' do
-      expect(json_response[:email]).to eql user.email
+      expect(json_response[:user][:email]).to eql user.email
     end
 
     it { is_expected.to respond_with 200 }
@@ -22,7 +22,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       before(:each) { post :create, { user: user_attributes } }
       
       it 'renders the json representation for the user just created' do
-        expect(json_response[:email]).to eql user_attributes[:email]
+        expect(json_response[:user][:email]).to eql user_attributes[:email]
       end
 
       it { is_expected.to respond_with 201 }
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it 'renders the json representation of the user just updated' do
-        expect(json_response[:email]).to eql 'newemail@example.com'
+        expect(json_response[:user][:email]).to eql 'newemail@example.com'
       end
 
       it { is_expected.to respond_with 200 }

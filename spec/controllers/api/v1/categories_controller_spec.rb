@@ -10,7 +10,7 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
     end
 
     it 'returns all the categories in the database' do 
-      expect(json_response.length).to eql 20
+      expect(json_response[:categories].length).to eql 20
     end
 
     it { is_expected.to respond_with 200 }
