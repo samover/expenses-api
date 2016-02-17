@@ -14,9 +14,14 @@ module Request
       request.headers['Content-type'] = format.to_s
     end
     
+    def api_request_token token=FactoryGirl.create(:user).auth_token
+      request.headers['Authorization'] = "Token token=#{token}"
+    end
+
     def include_default_accept_headers
       api_header
       api_response_format
+      api_request_token
     end
   end
 end

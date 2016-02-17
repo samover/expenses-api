@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ExpensesController, type: :controller do
-  let(:expense) { FactoryGirl.create(:expense, 
-                              user: FactoryGirl.create(:user),
-                              category: FactoryGirl.create(:category)) }
+  let(:expense) { FactoryGirl.create(:expense) }
 
   describe 'GET #show' do
     before(:each) { get :show, id: expense.id}
