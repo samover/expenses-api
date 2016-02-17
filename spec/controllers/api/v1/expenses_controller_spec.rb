@@ -13,8 +13,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
     before(:each) { get :show, id: expense.id, format: :json }
 
     it 'returns the information about a reporter on a hash' do
-      expense_response = JSON.parse(response.body, symbolize_names: true)
-      expect(expense_response[:title]).to eql expense.title
+      expect(json_response[:title]).to eql expense.title
     end
 
     it { is_expected.to respond_with 200 }
@@ -30,8 +29,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
       end
       
       it 'renders the json representation for the expense just created' do
-        expense_response = JSON.parse(response.body, symbolize_names: true)
-        expect(expense_response[:title]).to eql expense_attributes[:title]
+        expect(json_response[:title]).to eql expense_attributes[:title]
       end
 
       it { is_expected.to respond_with 201 }
@@ -43,13 +41,11 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
       end
 
       it 'renders the json errors' do
-        expense_response = JSON.parse(response.body, symbolize_names: true)
-        expect(expense_response).to have_key(:errors)
+        expect(json_response).to have_key(:errors)
       end
 
       it 'renders the json errors on why the expense entry cannot be created' do
-        expense_response = JSON.parse(response.body, symbolize_names: true)
-        expect(expense_response[:errors][:title]).to include "can't be blank"
+        expect(json_response[:errors][:title]).to include "can't be blank"
       end
 
       it { is_expected.to respond_with 422 }
@@ -64,8 +60,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
       end
 
       it 'renders the json representation of the expense just updated' do
-        expense_response = JSON.parse(response.body, symbolize_names: true)
-        expect(expense_response[:title]).to eql 'An updated title'
+        expect(json_response[:title]).to eql 'An updated title'
       end
 
       it { is_expected.to respond_with 200 }
@@ -78,13 +73,11 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
       end
 
       it 'renders the json errors' do
-        expense_response = JSON.parse(response.body, symbolize_names: true)
-        expect(expense_response).to have_key(:errors)
+        expect(json_response).to have_key(:errors)
       end
 
       it 'renders the json errors on why the expense entry cannot be created' do
-        expense_response = JSON.parse(response.body, symbolize_names: true)
-        expect(expense_response[:errors][:amount]).to include "can't be blank"
+        expect(json_response[:errors][:amount]).to include "can't be blank"
       end
 
       it { is_expected.to respond_with 422 }
