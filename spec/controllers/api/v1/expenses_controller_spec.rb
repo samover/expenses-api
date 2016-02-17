@@ -9,7 +9,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
     before(:each) { get :show, id: expense.id}
 
     it 'returns the information about a reporter on a hash' do
-      expect(json_response[:title]).to eql expense.title
+      expect(json_response[:expense][:title]).to eql expense.title
     end
 
     it { is_expected.to respond_with 200 }
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
       before(:each) { post :create, { expense: expense_attributes } }
       
       it 'renders the json representation for the expense just created' do
-        expect(json_response[:title]).to eql expense_attributes[:title]
+        expect(json_response[:expense][:title]).to eql expense_attributes[:title]
       end
 
       it { is_expected.to respond_with 201 }
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
       end
 
       it 'renders the json representation of the expense just updated' do
-        expect(json_response[:title]).to eql 'An updated title'
+        expect(json_response[:expense][:title]).to eql 'An updated title'
       end
 
       it { is_expected.to respond_with 200 }

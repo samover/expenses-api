@@ -20,7 +20,7 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
     before(:each) { get :show, id: category.id}
 
     it 'returns the information about a reporter on a hash' do
-      expect(json_response[:name]).to eql category.name
+      expect(json_response[:category][:name]).to eql category.name
     end
 
     it { is_expected.to respond_with 200 }
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
       before(:each) { post :create, { category: category_attributes } }
       
       it 'renders the json representation for the category just created' do
-        expect(json_response[:name]).to eql category_attributes[:name]
+        expect(json_response[:category][:name]).to eql category_attributes[:name]
       end
 
       it { is_expected.to respond_with 201 }
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
       end
 
       it 'renders the json representation of the category just updated' do
-        expect(json_response[:name]).to eql 'An updated name'
+        expect(json_response[:category][:name]).to eql 'An updated name'
       end
 
       it { is_expected.to respond_with 200 }
