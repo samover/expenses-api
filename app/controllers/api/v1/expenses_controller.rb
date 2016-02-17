@@ -20,6 +20,16 @@ class Api::V1::ExpensesController < ApplicationController
     end
   end
 
+  def update
+    expense = Expense.find(params[:id])
+
+    if expense.update(expense_params)
+      render json: expense, status: 200, location: [:api, expense]
+    else
+      render json: { errors: expense.errors }, status: 422
+    end
+  end
+
   private
 
   def expense_params

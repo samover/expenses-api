@@ -55,4 +55,39 @@ RSpec.describe Api::V1::ExpensesController, type: :controller do
       it { is_expected.to respond_with 422 }
     end
   end
+
+  describe 'PATCH #update' do
+    context 'when is succesfully updated' do
+      before(:each) do
+        patch :update, { id: expense.id, 
+                         expense: { title: 'An updated title' } }, format: :json
+      end
+
+      it 'renders the json representation of the expense just updated' do
+        expense_response = JSON.parse(response.body, symbolize_names: true)
+        expect(expense_response[:title]).to eql 'An updated title'
+      end
+
+      it { is_expected.to respond_with 200 }
+    end
+
+    context 'when is not successful' do
+      before(:each) do
+        patch :update, { id: expense.id,
+                         expense: { amount: '' } }, format: :json
+      end
+
+      it 'renders the json errors' do
+        expense_response = JSON.parse(response.body, symbolize_names: true)
+        expect(expense_response).to have_key(:errors)
+      end
+
+      it 'renders the json errors on why the expense entry cannot be created' do
+        expense_response = JSON.parse(response.body, symbolize_names: true)
+        expect(expense_response[:errors][:amount]).to include "can't be blank"
+      end
+
+      it { is_expected.to respond_with 422 }
+    end
+  end
 end
