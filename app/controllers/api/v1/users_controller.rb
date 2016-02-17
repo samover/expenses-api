@@ -1,5 +1,7 @@
 class Api::V1::UsersController < ApplicationController
 
+  before_filter :authenticate_user_from_token, except: [:create]
+
   def show
     user = User.find(params[:id])
     render json: user

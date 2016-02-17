@@ -1,5 +1,7 @@
 class Api::V1::CategoriesController < ApplicationController
 
+  before_filter :authenticate_user_from_token
+
   def index
     categories = Category.all
     render json: categories

@@ -1,5 +1,7 @@
 class Api::V1::ExpensesController < ApplicationController
 
+  before_filter :authenticate_user_from_token
+
   def show
     expense = Expense.find(params[:id])
     render json: expense
