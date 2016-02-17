@@ -6,7 +6,7 @@ class Api::V1::ExpensesController < ApplicationController
   end
 
   def show
-    expense = Expense.find_by(params[:id])
+    expense = Expense.find(params[:id])
     render json: expense
   end
 
