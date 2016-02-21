@@ -1,6 +1,6 @@
 # Expenses Api
 
-A fully tested stateless API in Rails for keeping of expenses
+A fully tested stateless API in Rails for keeping of expenses. I am using this api to learn building apps in different frameworks for different devices.
 * Versioning and subdomain
 * Available resources: users, expenses, categories
 * Token based authentication
